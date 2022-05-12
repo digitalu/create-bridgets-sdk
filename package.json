@@ -1,0 +1,30 @@
+{
+  "name": "create-bridgets-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/bin/index.js",
+  "bin": {
+    "create-bridgets-sdk": "dist/bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digitalu/create-bridgets-sdk.git"
+  },
+  "author": "El Ouahabi Nabil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/digitalu/create-bridgets-sdk/issues"
+  },
+  "homepage": "https://github.com/digitalu/create-bridgets-sdk#readme",
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
