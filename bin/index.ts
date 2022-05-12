@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+console.log('Ah OUI');
+
 import { execSync } from 'child_process';
 import { copyTypesAndMinify } from './copyModuleTypes';
 // import { compileSDK } from './compileSDK';
