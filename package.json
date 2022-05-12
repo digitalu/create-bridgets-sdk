@@ -1,5 +1,5 @@
 {
-  "name": "create-bridgets-sdk",
+  "name": "create-bridge-sdk",
   "version": "1.0.3",
   "description": "",
   "main": "dist/bin/index.js",
