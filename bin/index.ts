@@ -1,16 +1,7 @@
-#!/usr/bin/env node
-
-console.log('Ah OUI');
-
+import fs from 'fs';
 import { execSync } from 'child_process';
 import { copyTypesAndMinify } from './copyModuleTypes';
-// import { compileSDK } from './compileSDK';
-import { writeFile } from './fs';
-import fs from 'fs';
-import { fetchFile } from './fetchFile';
 import { createOrUpdateBridgeConfigFile } from './createConfigFile';
-
-const command = 'echo Compilation done';
 
 const createDtsFolderCommand = (tsConfigLocation: string, sdkLocation: string) =>
   `npx tsc -p ${tsConfigLocation} --declaration --emitDeclarationOnly --rootDir ./ --outDir ${sdkLocation}`;
@@ -25,24 +16,25 @@ const runCommand = (command: string) => {
   return true;
 };
 
-export const compile = () => {
-  if (!fs.existsSync('bridgets.config.json')) {
-    createOrUpdateBridgeConfigFile();
-    throw new Error('No Config');
-  }
+if (!fs.existsSync('bridgets.config.json')) {
+  throw new Error('CLI not ready, create yourself the bridgets.config.json file.');
+  createOrUpdateBridgeConfigFile();
+  throw new Error('No Config');
+}
 
-  const cfg = JSON.parse(fs.readFileSync('bridgets.config.json', 'utf-8'));
+// READ THE CONFIG BRIDGE FILE
+const cfg = JSON.parse(fs.readFileSync('bridgets.config.json', 'utf-8'));
 
-  if (fs.existsSync(cfg.sdkLocation)) fs.rmSync(cfg.sdkLocation, { recursive: true });
+// DELETE SDK BEFORE RECREATING IT IF EXISTS
+if (fs.existsSync(cfg.sdkLocation)) fs.rmSync(cfg.sdkLocation, { recursive: true });
 
-  runCommand(createDtsFolderCommand(cfg.tsConfigLocation, `${cfg.sdkLocation}/dts`));
+console.log('Compiling...');
 
-  copyTypesAndMinify(cfg.sdkLocation);
+// CREATE DTS FROM PROJECT CODE IN THE SDK
+runCommand(createDtsFolderCommand(cfg.tsConfigLocation, `${cfg.sdkLocation}/dts`));
 
-  //   compileSDK(routes, cfg.sdkLocation, cfg.typeLocation, 'SDKTypes');
+// COPYING TYPES FROM NODE_MODULES AND MINFYING THEM
+copyTypesAndMinify(cfg.sdkLocation);
 
-  writeFile(`${cfg.sdkLocation}/fetchBridgeTS`, fetchFile);
-
-  runCommand(command);
-  process.exit(1);
-};
+// RUN THE PROJECT TO COMPILE THE BRIDGE SDK
+runCommand(`npx ts-node ${cfg.pathToSourceFile} -compileBridgeSDK`);
