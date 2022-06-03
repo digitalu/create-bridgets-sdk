@@ -3,6 +3,8 @@ import { execSync } from 'child_process';
 import { copyTypesAndMinify } from './copyModuleTypes';
 import { createOrUpdateBridgeConfigFile } from './createConfigFile';
 
+console.log('SALUT');
+
 const createDtsFolderCommand = (tsConfigLocation: string, sdkLocation: string) =>
   `npx tsc -p ${tsConfigLocation} --declaration --emitDeclarationOnly --rootDir ./ --outDir ${sdkLocation}`;
 
