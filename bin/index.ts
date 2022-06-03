@@ -24,19 +24,19 @@ if (!fs.existsSync('bridgets.config.json')) {
   throw new Error('No Config');
 }
 
-// READ THE CONFIG BRIDGE FILE
-const cfg = JSON.parse(fs.readFileSync('bridgets.config.json', 'utf-8'));
+// // READ THE CONFIG BRIDGE FILE
+// const cfg = JSON.parse(fs.readFileSync('bridgets.config.json', 'utf-8'));
 
-// DELETE SDK BEFORE RECREATING IT IF EXISTS
-if (fs.existsSync(cfg.sdkLocation)) fs.rmSync(cfg.sdkLocation, { recursive: true });
+// // DELETE SDK BEFORE RECREATING IT IF EXISTS
+// if (fs.existsSync(cfg.sdkLocation)) fs.rmSync(cfg.sdkLocation, { recursive: true });
 
-console.log('Compiling...');
+// console.log('Compiling...');
 
-// CREATE DTS FROM PROJECT CODE IN THE SDK
-runCommand(createDtsFolderCommand(cfg.tsConfigLocation, `${cfg.sdkLocation}/dts`));
+// // CREATE DTS FROM PROJECT CODE IN THE SDK
+// runCommand(createDtsFolderCommand(cfg.tsConfigLocation, `${cfg.sdkLocation}/dts`));
 
-// COPYING TYPES FROM NODE_MODULES AND MINFYING THEM
-copyTypesAndMinify(cfg.sdkLocation);
+// // COPYING TYPES FROM NODE_MODULES AND MINFYING THEM
+// copyTypesAndMinify(cfg.sdkLocation);
 
-// RUN THE PROJECT TO COMPILE THE BRIDGE SDK
-runCommand(`npx ts-node ${cfg.pathToSourceFile} -compileBridgeSDK`);
+// // RUN THE PROJECT TO COMPILE THE BRIDGE SDK
+// runCommand(`npx ts-node ${cfg.pathToSourceFile} -compileBridgeSDK`);
