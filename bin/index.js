@@ -1,3 +1,4 @@
+console.log("hhhhhh")
 
 var fs = require('fs');
 var execSync = require('child_process')
