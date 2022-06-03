@@ -1,4 +1,4 @@
-console.log("hhhhhh")
+#!/usr/bin/env node
 
 var fs = require('fs');
 var execSync = require('child_process')
