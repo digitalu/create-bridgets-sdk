@@ -74,7 +74,7 @@ function cleanEmptyFoldersRecursively(folder) {
   }
 }
 
-export const copyTypesAndMinify = (sdkLocation) => {
+exports.copyTypesAndMinify = (sdkLocation) => {
   copyFolderRecursiveSync('./node_modules', `${sdkLocation}/dts`);
   cleanEmptyFoldersRecursively(`${sdkLocation}/dts`);
 };

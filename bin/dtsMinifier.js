@@ -8,7 +8,7 @@ const newLineCharCode = '\n'.charCodeAt(0);
 // todo: type the `ts` import (maybe with a local type that defines the expected compiler API structure)
 
 /** Creates a minifier that should be stored and then used to minify one or more files. */
-export function createMinifier() {
+exports.createMinifier = function() {
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, /* skipTrivia */ false, ts.LanguageVariant.Standard);
 
   return {

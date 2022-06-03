@@ -17,7 +17,7 @@ var fs = require('fs');
 */
 
 
-export const createOrUpdateBridgeConfigFile = (initialCfg = {}) => {
+exports.createOrUpdateBridgeConfigFile = (initialCfg = {}) => {
   const cfg = { tsConfigLocation: './tsconfig.json', sdkLocation: './sdk', typeLocation: './index.ts', ...initialCfg };
 
   const messages = {
