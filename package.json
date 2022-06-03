@@ -2,9 +2,9 @@
   "name": "create-bridge-sdk",
   "version": "1.0.16",
   "description": "",
-  "main": "dist/bin/index.js",
+  "main": "bin/index.js",
   "bin": {
-    "create-bridge-sdk": "dist/bin/index.js"
+    "create-bridge-sdk": "bin/index.js"
   },
   "scripts": {
     "build": "tsc",
