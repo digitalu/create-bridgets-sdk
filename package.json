@@ -2,13 +2,14 @@
   "name": "create-bridge-sdk",
   "version": "1.0.15",
   "description": "",
-  "main": "bin/index.js",
+  "main": "dist/bin/index.js",
   "bin": {
-    "create-bridge-sdk": "bin/index.js"
+    "create-bridge-sdk": "dist/bin/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "publish-minor": "npm version patch && npm publish"
+    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
+    "publish-minor": "npm run remove-dist && tsc && npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,11 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "readline-sync": "^1.4.10",
-    "typescript": "^4.6.4",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.39",
+    "@types/readline-sync": "^1.4.4"
   }
 }
