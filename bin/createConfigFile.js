@@ -1,5 +1,5 @@
-import readlineSync from 'readline-sync';
-import fs from 'fs';
+var readlineSync = require('readline-sync');
+var fs = require('fs');
 /*
  *  If ! bridgets.config.json
  *
@@ -16,13 +16,8 @@ import fs from 'fs';
 
 */
 
-type BridgeTSConfig = {
-  tsConfigLocation?: string;
-  sdkLocation?: string;
-  typeLocation?: string;
-};
 
-export const createOrUpdateBridgeConfigFile = (initialCfg: BridgeTSConfig = {}) => {
+export const createOrUpdateBridgeConfigFile = (initialCfg = {}) => {
   const cfg = { tsConfigLocation: './tsconfig.json', sdkLocation: './sdk', typeLocation: './index.ts', ...initialCfg };
 
   const messages = {

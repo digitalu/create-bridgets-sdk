@@ -1,45 +1,24 @@
-import ts from 'typescript';
+var ts = require('typescript');
 
 // Originally cloned from https://github.com/dsherret/dts_minify
 
-/**
- * Minifies TypeScript declaration files.
- * @remarks Use `createMinifier` to create a minifier.
- */
-export interface Minifier {
-  /**
-   * Removes non-essential whitespace, newlines, and comments from the provided text.
-   * @param text - Text to minify.
-   * @param options - Options for minifying.
-   */
-  minify(text: string, options?: MinifyOptions): string;
-}
-
-/** Options for minifying. */
-export interface MinifyOptions {
-  /**
-   * Does not remove the JS docs when true.
-   * @default false
-   */
-  keepJsDocs?: boolean;
-}
 
 const newLineCharCode = '\n'.charCodeAt(0);
 
 // todo: type the `ts` import (maybe with a local type that defines the expected compiler API structure)
 
 /** Creates a minifier that should be stored and then used to minify one or more files. */
-export function createMinifier(): Minifier {
+export function createMinifier() {
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, /* skipTrivia */ false, ts.LanguageVariant.Standard);
 
   return {
     minify,
   };
 
-  function minify(fileText: string, options?: MinifyOptions) {
+  function minify(fileText, options) {
     const keepJsDocs = options?.keepJsDocs ?? false;
     let result = '';
-    let lastWrittenToken: number | undefined;
+    let lastWrittenToken;
     let lastHadSeparatingNewLine = false;
 
     scanner.setText(fileText);
@@ -116,7 +95,7 @@ export function createMinifier(): Minifier {
       writeText(scanner.getTokenText().replace(/^\s+\*/gm, ' *'));
     }
 
-    function writeText(text: string) {
+    function writeText(text) {
       const token = scanner.getToken();
 
       // ensure two tokens that would merge into a single token are separated by a space
@@ -138,7 +117,7 @@ export function createMinifier(): Minifier {
     }
   }
 
-  function isAlphaNumericToken(token: number) {
+  function isAlphaNumericToken(token) {
     if (token >= ts.SyntaxKind.FirstKeyword && token <= ts.SyntaxKind.LastKeyword) {
       return true;
     }

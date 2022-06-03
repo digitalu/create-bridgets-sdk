@@ -2,14 +2,13 @@
   "name": "create-bridge-sdk",
   "version": "1.0.9",
   "description": "",
-  "main": "dist/bin/index.js",
+  "main": "bin/index.js",
   "bin": {
-    "create-bridge-sdk": "dist/bin/index.js"
+    "create-bridge-sdk": "bin/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
-    "publish-minor": "npm run remove-dist && tsc && npm version patch && npm publish"
+    "publish-minor": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",

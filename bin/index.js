@@ -1,14 +1,14 @@
-import fs from 'fs';
-import { execSync } from 'child_process';
-import { copyTypesAndMinify } from './copyModuleTypes';
-import { createOrUpdateBridgeConfigFile } from './createConfigFile';
 
-console.log('SALUT');
+var fs = require('fs');
+var execSync = require('child_process')
+var copyTypesAndMinify = require('./copyModuleTypes')
+var createOrUpdateBridgeConfigFile = require('./createConfigFile');
 
-const createDtsFolderCommand = (tsConfigLocation: string, sdkLocation: string) =>
+
+const createDtsFolderCommand = (tsConfigLocation, sdkLocation) =>
   `npx tsc -p ${tsConfigLocation} --declaration --emitDeclarationOnly --rootDir ./ --outDir ${sdkLocation}`;
 
-const runCommand = (command: string) => {
+const runCommand = (command) => {
   try {
     execSync(`${command}`, { stdio: 'inherit' });
   } catch (e) {

@@ -1,11 +1,11 @@
 var fs = require('fs');
 var path = require('path');
-import { createMinifier } from './dtsMinifier';
+var createMinifier = require('./dtsMinifier');
 
 // setup (provide a TS Compiler API object)
 const minifier = createMinifier();
 
-function copyFileSync(source: any, target: any) {
+function copyFileSync(source, target) {
   var targetFile = target;
 
   // If target is a directory, a new file with the same name will be created
@@ -26,7 +26,7 @@ function copyFileSync(source: any, target: any) {
   }
 }
 
-function copyFolderRecursiveSync(source: any, target: any) {
+function copyFolderRecursiveSync(source, target) {
   var files = [];
 
   // Check if folder needs to be created or integrated
@@ -38,7 +38,7 @@ function copyFolderRecursiveSync(source: any, target: any) {
   // Copy
   if (fs.lstatSync(source).isDirectory()) {
     files = fs.readdirSync(source);
-    files.forEach((file: any) => {
+    files.forEach((file) => {
       var curSource = path.join(source, file);
       if (fs.lstatSync(curSource).isDirectory()) {
         copyFolderRecursiveSync(curSource, targetFolder);
@@ -49,7 +49,7 @@ function copyFolderRecursiveSync(source: any, target: any) {
   }
 }
 
-function cleanEmptyFoldersRecursively(folder: any) {
+function cleanEmptyFoldersRecursively(folder) {
   var isDir = fs.statSync(folder).isDirectory();
   if (!isDir) {
     return;
@@ -57,7 +57,7 @@ function cleanEmptyFoldersRecursively(folder: any) {
   var files = fs.readdirSync(folder);
 
   if (files.length > 0 || (files.length === 1 && files[0] === 'package.json')) {
-    files.forEach(function (file: any) {
+    files.forEach(function (file) {
       var fullPath = path.join(folder, file);
       cleanEmptyFoldersRecursively(fullPath);
     });
@@ -74,7 +74,7 @@ function cleanEmptyFoldersRecursively(folder: any) {
   }
 }
 
-export const copyTypesAndMinify = (sdkLocation: string) => {
+export const copyTypesAndMinify = (sdkLocation) => {
   copyFolderRecursiveSync('./node_modules', `${sdkLocation}/dts`);
   cleanEmptyFoldersRecursively(`${sdkLocation}/dts`);
 };
